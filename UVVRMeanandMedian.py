@@ -1,11 +1,13 @@
-# Finds the median and mean UVVR value for different wetland classes from cwmap. To change what class is being analyzed, change line 25 from 11 to 1 or 2 or whatever else you want (and also the print statement so it isn't stuck on mixed emergent wetland water)
+# Finds the median and mean UVVR value for different wetland classes from cwmap. To change what class is being analyzed, change line 25 from 11 to 1 or 2 or whatever
+# else you want (and also the print statement so it isn't stuck on mixed emergent wetland water)
 import os
 import arcpy # Not sure if this import works, may need to be done within arcgis pro itself
 
 # Some of the code is commented out. This is because in the UVVR paper, https://link.springer.com/article/10.1007/s12237-022-01081-x, 
-# they say that since UVVR is unitless, one should first do calculations and averages and aggregates with Fv first, (which is band 2 in the UVVR files), and then convert to UVVR using
-# UVVR = 1/(F_v) - 1
-# However I initially did means with UVVR directly, leading to some really high uvvr numbers
+# they say that since UVVR is unitless, one should first do calculations and averages and aggregates with Fv first, (which is band 2 in the UVVR files), and then convert to UVVR using UVVR = 1/(F_v) - 1
+# However I initially did means with UVVR directly, leading to some really high uvvr numbers (40-200) that were very wrong. The real UVVR means were around 0-2 instead. 
+# Therefore, DO NOT AVERAGE UVVR DIRECTLY!!!! Do calculations and averages with Fv first, then convert to UVVR.
+
 for year in range(1985,2023):
     cwmap = Raster(os.path.join(r"path_to_parent_folder_here",f"cwmap_{year}.tif")) #or however you named cwmap, replace it as so
     mergedfvpath = os.path.join(r"path_to_band2 (atlantic & gulf uvvr merged)",f"{year}MergedFv.tif")
