@@ -1,7 +1,14 @@
 # This code analyzes emergent wetland to water change over time for cwmap and ccap, and 
 # analyzes how well ccap and cwmap align with each other using confusion matrices.
 # To save on spaace, not every file needs to be saved. This will take some refactoring, but one could say "null = SetNull(IsNull(cwmap), input_raster)" and then not save null to any output file. 
+# Note: Even though the accuracy assessment points were made, 2-3 more steps are needed to make the confusion matrices. ArcGIS Pro prepopulates the attribute table with a GrndTruth column, all filled as "-1". 
+# For the confusion matrix tool to work, these GrndTruth values have to be replaced. In this code, the cwmap files are being sampled, so the CCAP files would be GrndTruth. 
+# There is a tool called "ExtractMultiValuesToPoints" which can do this, but the original GrndTruth column has to be deleted first. I don't think ExtractMultiValuesToPoints can override GrndTruth. In my attempts, I ended up making a new 
+# column called GrndTruth_1. But I think this is bad, because the next step is to use the ConfusionMatrix tool on these accuracy assessment points, but I believe that tool recognizes GrndTruth as a special name, so GrndTruth_1 doesn't work.
+# So delete the GrndTruth column, run the "ExtractMultiValuesToPoints" tool with GrndTruth as the output field name, then run the ConfusionMatrix tool.
 
+# Also, this is version 1 of my attempt to do this. I made a version 2 as well. 
+ 
 import os
 from arcpy.sa import *
 
