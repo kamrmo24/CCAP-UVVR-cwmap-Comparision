@@ -1,3 +1,6 @@
+# Attempted to compare uvvr files to changetype.tif. However, I think that since uvvr is a ratio that could proxy stability of wetlands, 
+# whereas changetype.tif looks at... well, change types, these are two separate topics and can't really be compared like in the way I did so in this code.
+
 import arcpy
 import os
 from arcpy.sa import *
