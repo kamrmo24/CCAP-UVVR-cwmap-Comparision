@@ -1,3 +1,6 @@
+% I couldn't find a good way to do weighted random samplin in arcgis pro, so I opted for matlab instead. Matlab has more restrictions on size, so this might not work for machines with lesser RAM
+% Weighted random sampling was necessary because some parts of the confusion matrix, especially those relating to change, were too underrepresented to get some meaningful data out of it
+
 % Load TIF file
 [data, R] = readgeoraster("C:\Users\user\Documents\ArcGIS\Projects\MyProject\WetlandToWater\Attempt 3 ccap is now reference\Step2TernaryChange\PurecwmapTernaryChange\PurecwmapTernaryChange2006to2010.tif");
 
@@ -17,7 +20,7 @@ total_valid_pixels = sum(class_counts_valid);
 class_props = class_counts_valid / total_valid_pixels;
 
 % Set your sampling parameters
-min_samples_rare = 100;  % minimum for rare classes (4, 6)
+min_samples_rare = 100;  % minimum for rare classes
 total_samples = 2000;    % adjust as needed
 
 % Calculate samples per class
