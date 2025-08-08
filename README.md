@@ -64,3 +64,7 @@ Both gradual and abrupt changes are present. Class at beginning and end match.
 Abrupt and gradual change - permanent
 Both gradual and abrupt changes are present. Class at beginning and end are different.
 
+
+Compare CCAP and cwmap classes:
+![ccap and cwmap class comparisons](CCAP and cwmap class comparisions.png)
+
