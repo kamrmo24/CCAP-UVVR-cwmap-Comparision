@@ -59,3 +59,24 @@ for year in range(1985,2023):
         print(f"Error: {e}")
 
 
+import statistics
+for year in range(1985,2023):
+    sample_pts = os.path.join(r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRcwmap\AccAssPoints",f"{year}AccAssPoints.shp")
+
+    if not arcpy.Exists(sample_pts):
+        print(f"Couldn't get {year}")
+        continue
+    
+    print(f"Getting acc ass points {year}")
+    
+    print(f"Get median for {year}")
+    try:
+        # Use SearchCursor to compute the mean manually
+        with arcpy.da.SearchCursor(sample_pts, ["fv"]) as cursor:
+            values = [row[0] for row in cursor if row[0] is not None and row[0] > -9990]
+
+        median_uvvr = statistics.median(values)
+        print(f"{year} Meidan UVVR: {median_uvvr}")
+
+    except Exception as e:
+        print(f"Error: {e}")
