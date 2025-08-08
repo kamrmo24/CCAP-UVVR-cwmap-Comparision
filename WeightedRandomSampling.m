@@ -1,5 +1,7 @@
 % Load TIF file
-[data, R] = readgeoraster("C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\WetlandToWater\Attempt 3 ccap is now reference\Step2TernaryChange\PurecwmapTernaryChange\PurecwmapTernaryChange2006to2010.tif");
+[data, R] = readgeoraster("C:\Users\user\Documents\ArcGIS\Projects\MyProject\WetlandToWater\Attempt 3 ccap is now reference\Step2TernaryChange\PurecwmapTernaryChange\PurecwmapTernaryChange2006to2010.tif");
+
+disp(unique(data(:))) % Helps to find what classes we have and if there are any no data classes inflating the size of the file
 
 % Define your valid change classes (exclude 255)
 valid_classes = [1, 2, 3, 4, 5, 6, 7];
@@ -8,7 +10,7 @@ valid_classes = [1, 2, 3, 4, 5, 6, 7];
 valid_mask = data ~= 255;
 
 % Now proceed with stratified sampling on valid pixels only
-class_counts_valid = [1.2836e+08, 2.1493e+07, 1.5567e+08, 80328, 6.8788e+05, 55270, 1.3014e+06];
+class_counts_valid = [1.2836e+08, 2.1493e+07, 1.5567e+08, 80328, 6.8788e+05, 55270, 1.3014e+06]; % This was found via the attribute table of the septenary change file (titled ternary change because I was too lazy to change the name), or via using some matlab code i can't find anymore 
 total_valid_pixels = sum(class_counts_valid);
 
 % Calculate proportions (excluding NoData)
