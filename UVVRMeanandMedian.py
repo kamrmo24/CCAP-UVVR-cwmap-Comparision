@@ -1,3 +1,4 @@
+# Finds the median and mean UVVR value for different wetland classes from cwmap. To change what class is being analyzed, change line 25 from 11 to 1 or 2 or whatever else you want (and also the print statement so it isn't stuck on mixed emergent wetland water)
 import os
 import arcpy # Not sure if this import works, may need to be done within arcgis pro itself
 
@@ -43,7 +44,7 @@ for year in range(1985,2023):
             in_rasters=[[mergedfvpath, "fv"]], #ExtractMultiValuesToPoints needs a file path, not the raster object. This is why mergedfvpath is used instead of Raster(mergedfvpath)
             bilinear_interpolate_values="NONE"
         )
-        print(f"Calculating mean {year} fv for emergent wetlands...")
+        print(f"Calculating mean {year} fv for mixed emergent wetlands...")
         
         # Use SearchCursor to compute the mean manually
         with arcpy.da.SearchCursor(sample_pts, ["fv"]) as cursor:
