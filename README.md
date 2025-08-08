@@ -66,5 +66,5 @@ Both gradual and abrupt changes are present. Class at beginning and end are diff
 
 
 Compare CCAP and cwmap classes:
-![ccap and cwmap class comparisons]("CCAP and cwmap class comparisions.png")
+![ccap and cwmap class comparisons](CCAPandcwmapclasscomparisions.png)
 
