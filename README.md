@@ -20,5 +20,5 @@ Change Type Labels and Explanation (changeType.tif):
 
 Compare CCAP and cwmap classes:
 
-![ccap and cwmap class comparisons](CCAPandcwmapclasscomparisions.png)
+![ccap and cwmap class comparisons](pictures/CCAPandcwmapclasscomparisions.png)
 
