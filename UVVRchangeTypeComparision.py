@@ -6,11 +6,11 @@ arcpy.env.overwriteOutput = True
 arcpy.CheckOutExtension("Spatial")
 
 # Paths
-AtlanticUVVR = r"D:\Owais Kamran\UVVR Data\AtlanticUVVR"
-GulfUVVR = r"D:\Owais Kamran\UVVR Data\GulfUVVR"
-Band2Merge = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\PreprocessedUVVR\MergedUVVR\Band2Merge"
-clip_raster = r"D:\Owais Kamran\DiVit\DiVitchangeType.tif"
-CompositeFolder = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\1985to2022UVVRComposite"
+AtlanticUVVR = r"D:\user\UVVR Data\AtlanticUVVR"
+GulfUVVR = r"D:\user\UVVR Data\GulfUVVR"
+Band2Merge = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\PreprocessedUVVR\MergedUVVR\Band2Merge"
+clip_raster = r"D:\user\DiVit\DiVitchangeType.tif"
+CompositeFolder = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\1985to2022UVVRComposite"
 spatial_ref = arcpy.SpatialReference(5070)
 
 # Set environment
@@ -100,7 +100,7 @@ print("Converted composite Fv to UVVR.")
 
 
 # === STEP 4: Reclassify the composite ===
-Band2Thresholds = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\1985to2022UVVRComposite\Band2Thresholds"
+Band2Thresholds = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\1985to2022UVVRComposite\Band2Thresholds"
 reclass_input = arcpy.sa.Raster(uvvr_output_path)
 reclass_range = arcpy.sa.RemapRange([[0, 0.1300001, 0], [0.1300001, 1000000000, 1]])
 reclassified = arcpy.sa.Reclassify(reclass_input, "VALUE", reclass_range, "NODATA")
@@ -141,7 +141,7 @@ print("Reclassified composite 1.00 raster.")
 
 
 # Folder to save output points
-AccAssPoints = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\AccAssPoints"
+AccAssPoints = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\AccAssPoints"
 os.makedirs(AccAssPoints, exist_ok=True)
 
 thresholds = ["013", "015", "020", "050", "100"]
@@ -165,7 +165,7 @@ for t in thresholds:
 
 
         
-grnd_truth_raster = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to4_5to8GrndTruth.tif"
+grnd_truth_raster = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to4_5to8GrndTruth.tif"
 
 for t in thresholds:
     points_path = os.path.join(AccAssPoints, f"c{t}FvAccAssPoints.shp")
@@ -184,7 +184,7 @@ for t in thresholds:
 
 
 
-ConfusionOutputFolder = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix"
+ConfusionOutputFolder = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix"
 
 for t in thresholds:
     points = os.path.join(AccAssPoints, f"c{t}FvAccAssPoints.shp")
@@ -203,22 +203,22 @@ for t in thresholds:
 
 
 
-output_folder = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix"
+output_folder = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix"
 
 # Reclassify 0–3 as 0, 4–8 as 1
 remap_0to3_4to8 = RemapRange([[0, 3.9999, 0], [4, 8.0001, 1]])
 reclass_0to3_4to8 = Reclassify(clip_raster, "VALUE", remap_0to3_4to8, "NODATA")
-reclass_0to3_4to8.save(r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to3_4to8GrndTruth.tif")
+reclass_0to3_4to8.save(r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to3_4to8GrndTruth.tif")
 print("0 to 3 4 to 8 threshold remapped")
 # Reclassify 0–5 as 0, 6–8 as 1
 remap_0to5_6to8 = RemapRange([[0, 5.9999, 0], [6, 8.0001, 1]])
 reclass_0to5_6to8 = Reclassify(clip_raster, "VALUE", remap_0to5_6to8, "NODATA")
-reclass_0to5_6to8.save(r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to5_6to8GrndTruth.tif")
+reclass_0to5_6to8.save(r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to5_6to8GrndTruth.tif")
 print("0to5, 6to8 threshold remapped")
 
 
 
-ChangeType0to4_5to8GrndTruth = r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to4_5to8GrndTruth.tif"
+ChangeType0to4_5to8GrndTruth = r"C:\Users\user\Documents\ArcGIS\Projects\MyProject\UVVRandChangeType\ConfusionMatrix\ChangeType0to4_5to8GrndTruth.tif"
 for t in thresholds:
     points_path = os.path.join(AccAssPoints, f"c{t}FvAccAssPoints.shp")
 
