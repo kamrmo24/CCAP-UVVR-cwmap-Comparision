@@ -84,8 +84,8 @@ for year in range(1985,2023):
         with arcpy.da.SearchCursor(sample_pts, ["fv"]) as cursor:
             values = [row[0] for row in cursor if row[0] is not None and row[0] > -9990]
 
-        median_uvvr = statistics.median(values)
-        print(f"{year} Meidan UVVR: {median_uvvr}")
+        median_fv = statistics.median(values)
+        print(f"{year} Median fv: {median_fv}")
 
     except Exception as e:
         print(f"Error: {e}")
