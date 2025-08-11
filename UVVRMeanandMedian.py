@@ -3,9 +3,9 @@
 import os
 import arcpy # Not sure if this import works in a regular IDE, may need to be done within arcgis pro itself
 
-# Some of the code is commented out. This is because in the UVVR paper, https://link.springer.com/article/10.1007/s12237-022-01081-x, 
+# In the UVVR paper, https://link.springer.com/article/10.1007/s12237-022-01081-x, 
 # they say that since UVVR is unitless, one should first do calculations and averages and aggregates with Fv first, (which is band 2 in the UVVR files), and then convert to UVVR using UVVR = 1/(F_v) - 1
-# However I initially did means with UVVR directly, leading to some really high uvvr numbers (40-200) that were very wrong. The real UVVR means were around 0-2 instead. 
+# I initially did means with UVVR directly, leading to some really high uvvr numbers (40-200) that were very wrong. The real UVVR means were around 0-2 instead. 
 # Therefore, DO NOT AVERAGE UVVR DIRECTLY!!!! Do calculations and averages with Fv first, then convert to UVVR.
 
 for year in range(1985,2023):
@@ -14,22 +14,22 @@ for year in range(1985,2023):
     # MergedFv takes the Fv bands (Band 2) of the Atlantic and Gulf files for each year, merges them together using MosaicToNewRaster, and does other preprocessing like reprojecting and snap raster.
     # MergedFv could be made better because the conditional raster used in SetNull was changeType.tif, but to make it better, the corresponding cwmap_{year}.tif should be used instead. This 
     # reduces the -9999 values in the attribute table. These -9999 values are why the "row[0] > -9990" line exists. This isn't a huge issue, but it would be nice to have sample sizes be more consistent.
-#     UVVRfromMergedFv = os.path.join(r"C:\Users\kamrmo24\Documents\ArcGIS\Projects\MyProject\UVVRcwmap\UVVRfromMergedFv",f"{year}UVVRfromFv.tif")
  
     if not arcpy.Exists(mergedfvpath):
         print(f"Couldn't find {year} mergedfv")
-        continue
-#     mergedfv = Raster(mergedfvpath)
-    
-#     print(f"Converting {year} to uvvr")
-#     uvvr = (1/mergedfv) -1
-#     uvvr.save(UVVRfromMergedFv)
-#     print(f"Converted {year} uvvr")
+        continue #The continue keyword skips this iteration of the for loop
 
+    # The important class codes are as follows: 1 is water, 2 is emergent wetland, 11 is mixed emergent wetland water    
     print(f"Nulling cwmap {year}")
+    # To look at the UVVR for pixels that are emergent wetland one year and then a different class the next, comment out the below SetNull 
+    # statement and use this code instead:
+    # cwmap1 = Raster(os.path.join(r"path_to_parent_folder_here",f"cwmap_{year}.tif"))
+    # cwmap2 = Raster(os.path.join(r"path_to_parent_folder_here",f"cwmap_{year+1}.tif"))
+    # emergent_condition = ( (cwmap1 == 2) & (cwmap2 == 1) )
+    # emergent = SetNull(~emergent_condition, cwmap1)
     emergent = SetNull(cwmap!=11,cwmap)
-  # The important class codes are as follows: 1 is water, 2 is emergent wetland, 11 is mixed emergent wetland water. 
     print(f"Nulled cwmap {year}")
+
 
     # Assuming the raster is categorical:
     print(f"Making acc ass points {year}")
